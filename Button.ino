@@ -1,5 +1,5 @@
 bool u() {
-  int i = 0;
+  short i = 0;
   if (digitalRead(sw[0]) == 0) {
     buz(1);
     while (digitalRead(sw[0]) == 0) {
@@ -13,7 +13,7 @@ bool u() {
   return i;
 }
 bool d() {
-  int i = 0;
+  short i = 0;
   if (digitalRead(sw[1]) == 0) {
     buz(1);
     while (digitalRead(sw[1]) == 0) {
@@ -26,8 +26,8 @@ bool d() {
   (i > 15) ? i = 1 : i = 0;
   return i;
 }
-bool c() {
-  int i = 0;
+byte c() {
+  short i = 0;
   if (digitalRead(sw[2]) == 0) {
     buz(1);
     while (digitalRead(sw[2]) == 0) {
