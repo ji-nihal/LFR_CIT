@@ -1,9 +1,11 @@
 void reading() {
   sum = 0;
+  sensor = 0;
   for (int i = 0; i < 6; i++) {
     s[i] = analogRead(ir[i]);
-    (s[i] > mid) ? s[i] = 0 : s[i] = 1;
-    sum += i;
+    (s[i] > mid) ? s[i] = 1 : s[i] = 0;
+    sensor+=s[i]*base[i];
+    sum += s[i];
   }
 }
 
@@ -26,7 +28,7 @@ void calibration() {
   }
   go(2, -2);
   t1 = millis();
-  while (millis() - t1 < 2440) {
+  while (millis() - t1 < 2500) {
     for (int i = 0; i < 6; i++) {
       s[i] = analogRead(ir[i]);
       maximum[i] = max(maximum[i], s[i]);

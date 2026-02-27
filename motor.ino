@@ -16,6 +16,7 @@ void go(short a, short b) {
   l = a;
   r = b;
 }
+
 void brake() {
   if (l >= 0 && r >= 0) go(-10, -10);
   if (l < 0 && r < 0) go(10, 10);
@@ -23,4 +24,20 @@ void brake() {
   if (l >= 0 && r < 0) go(-10, 10);
   delay(20);
   go(0, 0);
+}
+
+void run() {
+  delay(500);
+  go(2, -2);
+  delay(500);
+  brake();
+  delay(200);
+  go(-2, 2);
+  delay(800);
+  brake();
+  delay(200);
+  go(2, -2);
+  delay(550);
+  brake();
+  delay(200);
 }

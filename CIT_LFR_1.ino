@@ -7,7 +7,8 @@
 SSD1306AsciiWire oled;
 
 byte sw[3] = { 1, 0, 12 }, spd = 25, cal = 2, letter = 6;
-short ir[6] = { A7, A6, A3, A2, A1, A0 }, s[6], sum;
+short ir[6] = { A7, A6, A3, A2, A1, A0 }, s[6], sum, sensor;
+short base[6] = { 32, 16, 8, 4, 2, 1 };
 short m[4] = { 6, 9, 11, 10 }, maximum[6], minimum[6], mid[6];
 short counter = -1, l, r;
 unsigned long t1 = 0;
@@ -33,8 +34,8 @@ void setup() {
   start();
 }
 void loop() {
-  if (millis() - t1 > 200) {
-    sensor();
+  if (millis() - t1 > 50) {
+    sensor_value();
     t1 = millis();
   }
   bool x = u();
