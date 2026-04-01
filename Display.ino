@@ -1,3 +1,5 @@
+//..............Initialization Screen...............
+//..................................................
 void start() {
   oled.clear();
   oled.print("  ");
@@ -28,6 +30,8 @@ void start() {
 }
 
 
+//...........Clear Page Without Feading....... .....
+//..................................................
 void clr_page() {
   for (int i = 2; i <= 7; i++) {
     oled.clearField(0, i, 22);
@@ -35,44 +39,27 @@ void clr_page() {
 }
 
 
+//......................Menu 1......................
+//..................................................
 void menu_1() {
   oled.setCursor(0, 7);
   oled.print(" ");
+  (counter == 0) ? oled.setInvertMode(1) : oled.setInvertMode(0);
   oled.print("RUN");
+  oled.setInvertMode(0);
   oled.print("  ");
+  (counter == 1) ? oled.setInvertMode(1) : oled.setInvertMode(0);
   oled.print("Menu");
+  oled.setInvertMode(0);
   oled.print("  ");
+  (counter == 2) ? oled.setInvertMode(1) : oled.setInvertMode(0);
   oled.print("Calibrate");
+  oled.setInvertMode(0);
 }
 
 
-void select(short i) {
-  if (i == 0) {
-    oled.clearField(0, 7, 22);
-    oled.setCursor(0, 7);
-    oled.setInvertMode(1);
-    oled.print(" RUN ");
-    oled.setInvertMode(0);
-    oled.print(" Menu  Calibrate ");
-  } else if (i == 1) {
-    oled.clearField(0, 7, 22);
-    oled.setCursor(0, 7);
-    oled.print(" RUN ");
-    oled.setInvertMode(1);
-    oled.print(" Menu ");
-    oled.setInvertMode(0);
-    oled.print(" Calibrate ");
-  } else if (i == 2) {
-    oled.clearField(0, 7, 11);
-    oled.setCursor(0, 7);
-    oled.print(" RUN  Menu ");
-    oled.setInvertMode(1);
-    oled.print(" Calibrate ");
-    oled.setInvertMode(0);
-  }
-}
-
-
+//..............Display Sensor Value................
+//..................................................
 void sensor_value() {
   reading();
   oled.clearField(0, 3, 22);
@@ -80,15 +67,15 @@ void sensor_value() {
   oled.clearField(0, 5, 22);
   oled.setCursor(0, 3);
   for (byte i = 1; i < 5; i++) {
-    oled.setCursor(letter * (5 * (i - 1) + 1), 3);
+    oled.setCursor(letter * (5 * (i - 1) + 1) + letter, 3);
     oled.print(analogRead(ir[i]));
   }
-  oled.setCursor(0, 4);
+  oled.setCursor(letter, 4);
   oled.print(analogRead(ir[0]));
-  oled.setCursor(letter * 17, 4);
+  oled.setCursor(letter * 17 + letter, 4);
   oled.print(analogRead(ir[5]));
   oled.setCursor(0, 5);
-  oled.print("     ");
+  oled.print("      ");
   for (int i = 0; i < 6; i++) {
     oled.print(s[i]);
     oled.print(" ");
@@ -96,6 +83,8 @@ void sensor_value() {
 }
 
 
+//..............Display EEPROM Value................
+//..................................................
 void value() {
   eeprom();
   clr_page();
@@ -143,9 +132,8 @@ void value() {
     byte z = c();
     if (z) {
       clr_page();
-      menu_1();
-      select(1);
       break;
     }
   }
+  menu_1();
 }

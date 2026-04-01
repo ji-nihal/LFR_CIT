@@ -1,14 +1,18 @@
+//.................Sensor Reading...................
+//..................................................
 void reading() {
   sum = 0;
   sensor = 0;
   for (int i = 0; i < 6; i++) {
     s[i] = analogRead(ir[i]);
-    (s[i] > mid) ? s[i] = 1 : s[i] = 0;
-    sensor+=s[i]*base[i];
+    (s[i] > mid) ? s[i] = 0 : s[i] = 1;
+    sensor += s[i] * base[i];
     sum += s[i];
   }
 }
 
+//...............Sensor Calibration.................
+//..................................................
 void calibration() {
   oled.clearField(0, 2, 22);
   oled.clearField(0, 3, 22);
