@@ -6,14 +6,14 @@
 #define I2C_ADDRESS 0x3C
 SSD1306AsciiWire oled;
 
-byte sw[3] = { 1, 0, 12 }, spd = 18, cal = 2, letter = 6;
+byte sw[3] = { 1, 0, 12 }, spd = 18, letter = 6, tsp = 4, bsp = 8;
 short ir[6] = { A7, A6, A3, A2, A1, A0 }, s[6], sum, sensor;
 short base[6] = { 32, 16, 8, 4, 2, 1 };
 short m[4] = { 6, 9, 11, 10 }, maximum[6], minimum[6], mid[6];
 short counter = -1, l, r;
 unsigned long t1, t2;
 char flag = s, side = s;
-
+float cal = 2;
 
 void setup() {
   for (int i = 0; i < 6; i++) {

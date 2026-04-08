@@ -2,17 +2,26 @@
 //..................................................
 void go(short a, short b) {
   if (a >= 0) {
-    analogWrite(m[0], a * spd);
+    short x = abs(a) * spd;
+    if (x > 255) x = 255;
+    analogWrite(m[0], x);
     analogWrite(m[1], 0);
   } else {
-    analogWrite(m[1], abs(a) * spd);
+    short x = abs(a) * spd;
+    if (x > 255) x = 255;
+    if (a < -10) a = -10;
+    analogWrite(m[1], x);
     analogWrite(m[0], 0);
   }
   if (b >= 0) {
-    analogWrite(m[2], b * spd);
+    short x = abs(b) * spd;
+    if (x > 255) x = 255;
+    analogWrite(m[2], x);
     analogWrite(m[3], 0);
   } else {
-    analogWrite(m[3], abs(b) * spd);
+    short x = abs(b) * spd;
+    if (x > 255) x = 255;
+    analogWrite(m[3], x);
     analogWrite(m[2], 0);
   }
   l = a;
@@ -26,7 +35,7 @@ void brake() {
   if (l < 0 && r < 0) go(10, 10);
   if (l < 0 && r >= 0) go(10, -10);
   if (l >= 0 && r < 0) go(-10, 10);
-  delay(20);
+  delay(30);
   go(0, 0);
 }
 

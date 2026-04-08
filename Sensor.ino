@@ -5,7 +5,7 @@ void reading() {
   sensor = 0;
   for (int i = 0; i < 6; i++) {
     s[i] = analogRead(ir[i]);
-    (s[i] > mid) ? s[i] = 0 : s[i] = 1;
+    (s[i] > mid[i]) ? s[i] = 0 : s[i] = 1;
     sensor += s[i] * base[i];
     sum += s[i];
   }
@@ -14,12 +14,7 @@ void reading() {
 //...............Sensor Calibration.................
 //..................................................
 void calibration() {
-  oled.clearField(0, 2, 22);
-  oled.clearField(0, 3, 22);
-  oled.clearField(0, 4, 22);
-  oled.clearField(0, 5, 22);
-  oled.clearField(0, 6, 22);
-  oled.clearField(0, 7, 22);
+  clr_page();
   oled.setCursor(0, 3);
   oled.set2X();
   oled.println("Calibrating");
@@ -30,7 +25,7 @@ void calibration() {
     maximum[i] = 0;
     minimum[i] = 1023;
   }
-  go(2, -2);
+  go(4, -4);
   t1 = millis();
   while (millis() - t1 < 2500) {
     for (int i = 0; i < 6; i++) {
@@ -39,16 +34,14 @@ void calibration() {
       minimum[i] = min(minimum[i], s[i]);
     }
   }
-  brake();
-  delay(200);
-
-  for (byte i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++) {
     mid[i] = (maximum[i] + minimum[i]) / cal;
-    EEPROM.write(i, mid[i] / 4);
+  }
+  brake();
+  for (byte i = 0; i < 6; i++) {
+    EEPROM.write(i, maximum[i] / 4);
     delay(10);
-    EEPROM.write(i + 6, maximum[i] / 4);
-    delay(10);
-    EEPROM.write(i + 12, minimum[i] / 4);
+    EEPROM.write(i + 6, minimum[i] / 4);
     delay(10);
   }
   value();
